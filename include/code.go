@@ -53,8 +53,9 @@ func includeRenderHook(root fs.FS, currentPath string) html.RenderNodeFunc {
 
 func newIncludeRenderer(root fs.FS, currentPath string) *html.Renderer {
 	opts := html.RendererOptions{
-		Flags:          html.CommonFlags,
+		Flags:          html.CommonFlags | html.CompletePage,
 		RenderNodeHook: includeRenderHook(root, currentPath),
+		CSS:            "/style.css",
 	}
 	return html.NewRenderer(opts)
 }

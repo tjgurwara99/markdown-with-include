@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 	"os"
@@ -9,7 +10,10 @@ import (
 )
 
 func main() {
-	root := os.DirFS("./")
+	dir := flag.String("d", "./", "Directory to serve over the server")
+	flag.Parse()
+
+	root := os.DirFS(*dir)
 	handler := include.FileServer(root)
 	if err := http.ListenAndServe(":8000", handler); err != nil {
 		log.Fatal(err)
